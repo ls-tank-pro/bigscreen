@@ -1,0 +1,13 @@
+{
+  "excludeScenes": [],
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "org.cocos2d.bigscreen",
+  "startScene": "ad2140e2-6516-4a30-a22c-4b8e7401e95e",
+  "title": "bigscreen",
+  "webOrientation": "landscape"
+}

@@ -1,22 +1,30 @@
+var Socket = require('socket');
+
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        bg: {
+        pool: {
             default: null,
-            type: cc.Sprite
-        },
-        bgList: {
-            default: [],
-            type: cc.SpriteFrame
-        },
-        playground: {
-            default: null,
-            type: cc.Node
+            type: cc.Component
         }
     },
 
     onLoad: function() {
-        this.bg.spriteFrame = this.bgList[0];
+        Socket.connect();
+        this.onServer();
+        
+    },
+    
+    onServer: function() {
+        Socket.on('b-enter', user => {
+            this.pool.createTank(user.data);
+        });
+        Socket.on('b-leave', user => {
+            this.pool.removeTank(user.data);
+        });
+        Socket.on('b-direction', user => {
+            this.pool.changeTankMotion(user);
+        });
     }
 });

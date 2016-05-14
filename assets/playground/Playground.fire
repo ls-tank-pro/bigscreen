@@ -36,7 +36,7 @@
         "__id__": 2
       },
       {
-        "__id__": 8
+        "__id__": 9
       }
     ],
     "_localZOrder": 0,
@@ -100,7 +100,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 7
+        "__id__": 12
       }
     ],
     "_prefab": null
@@ -169,7 +169,7 @@
       "__uuid__": "3a8cf0f6-40b3-4a09-a614-faff7ff2e1e3"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -185,7 +185,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "playground",
+    "_name": "Playground",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -231,6 +231,9 @@
     "_components": [
       {
         "__id__": 6
+      },
+      {
+        "__id__": 7
       }
     ],
     "_prefab": null
@@ -257,24 +260,35 @@
     "_originalHeight": 1200
   },
   {
-    "__type__": "cc.Canvas",
+    "__type__": "8ca26GeZEZD6obKTRpQeRK0",
     "_name": "",
-    "_objFlags": 1835008,
+    "_objFlags": 0,
     "node": {
-      "__id__": 2
+      "__id__": 5
     },
     "_enabled": true,
-    "_designResolution": {
-      "__type__": "cc.Size",
-      "width": 1920,
-      "height": 1200
+    "pool": {
+      "__id__": 8
+    }
+  },
+  {
+    "__type__": "e9089FrfPdGLYpQnIpmJmKU",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 9
     },
-    "_fitWidth": true,
-    "_fitHeight": true
+    "_enabled": true,
+    "tanksSet": {
+      "__id__": 11
+    },
+    "playground": {
+      "__id__": 6
+    }
   },
   {
     "__type__": "cc.Node",
-    "_name": "Playground",
+    "_name": "Pool",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -287,6 +301,62 @@
     "_cascadeOpacityEnabled": true,
     "_parent": {
       "__id__": 1
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_children": [
+      {
+        "__id__": 10
+      }
+    ],
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_tag": -1,
+    "_opacityModifyRGB": false,
+    "_reorderChildDirty": false,
+    "_id": "57ab8vwZolBhZyurURtf3tE",
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 8
+      }
+    ],
+    "_prefab": null
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "TanksSet",
+    "_objFlags": 0,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_parent": {
+      "__id__": 9
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -315,48 +385,44 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_reorderChildDirty": false,
-    "_id": "368781rbd1AhpJe/saWYwbI",
+    "_id": "149960Qx+JNBYJpZYnydoA4",
     "_active": true,
     "_components": [
       {
-        "__id__": 9
+        "__id__": 11
       }
     ],
     "_prefab": null
   },
   {
-    "__type__": "8ca26GeZEZD6obKTRpQeRK0",
+    "__type__": "ab43b5afrtEL4TxXJS4HZRL",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 8
+      "__id__": 10
     },
     "_enabled": true,
-    "bg": {
-      "__id__": 4
+    "prefab": {
+      "__uuid__": "77b53ca4-d5a0-4be9-9de2-89deedfa464d"
     },
-    "bgList": [
-      {
-        "__uuid__": "3a8cf0f6-40b3-4a09-a614-faff7ff2e1e3"
-      },
-      {
-        "__uuid__": "a1ccbf18-ef52-4ff9-8fea-f37ba6878f3d"
-      },
-      {
-        "__uuid__": "fa17ca9d-cea5-42dd-8f3f-f21ba36ff727"
-      },
-      {
-        "__uuid__": "d8466150-b988-4c35-ab9b-36d47e7cac22"
-      },
-      {
-        "__uuid__": "0d562768-6ec9-4b74-8e59-5714bd1ed451"
-      },
-      {
-        "__uuid__": "b59b62fd-8ec1-45ac-a007-564e53a9af44"
-      }
-    ],
-    "playground": {
-      "__id__": 5
+    "pool": {
+      "__id__": 8
     }
+  },
+  {
+    "__type__": "cc.Canvas",
+    "_name": "",
+    "_objFlags": 1835008,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "_designResolution": {
+      "__type__": "cc.Size",
+      "width": 1920,
+      "height": 1200
+    },
+    "_fitWidth": true,
+    "_fitHeight": true
   }
 ]

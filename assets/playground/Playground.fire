@@ -206,7 +206,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1670,
+      "width": 1680,
       "height": 1200
     },
     "_children": [],
@@ -248,8 +248,8 @@
     "_enabled": true,
     "isAlignOnce": false,
     "_alignFlags": 45,
-    "_left": 0,
-    "_right": 250,
+    "_left": -5,
+    "_right": 245,
     "_top": 0,
     "_bottom": 0,
     "_isAbsLeft": true,
@@ -284,7 +284,8 @@
     },
     "playground": {
       "__id__": 6
-    }
+    },
+    "nodePool": {}
   },
   {
     "__type__": "cc.Node",
@@ -407,7 +408,8 @@
     },
     "pool": {
       "__id__": 8
-    }
+    },
+    "cache": {}
   },
   {
     "__type__": "cc.Canvas",

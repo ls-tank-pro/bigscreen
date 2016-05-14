@@ -13,7 +13,7 @@ exports.getRandomPosition = function(maxSize) {
 };
 
 exports.createUnoccupiedPosition = function(tanksSet) {
-    var tempPosition = exports.getRandomPosition({width: 400, height: 400});
+    var tempPosition = exports.getRandomPosition({width: 1680, height: 1200});
     
     var positionIsOccupied = tanksSet.some(function(tank) {
         var max = { x: tank.x + 84, y: tank.y + 84 };

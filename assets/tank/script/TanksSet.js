@@ -26,7 +26,7 @@ cc.Class({
     },
     
     remove: function(user) {
-        if (this.cache[user.uid]) this.cache[user.uid].component.destroy();
+        if (this.cache[user.uid]) this.cache[user.uid].node.active = false;
     },
     
     createPosition: function() {

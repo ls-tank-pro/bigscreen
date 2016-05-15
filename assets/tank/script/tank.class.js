@@ -1,5 +1,6 @@
 class Tank {
     constructor(prefab, playground, position, user) {
+        this.uid = user.uid;
         this.type = 'Tank';
         this.nickname = user.nickname;
         

@@ -1,125 +1,126 @@
-var _ = require('../../public/lib/lodash.js');
-
-function isInner(rect, bounds) {
-    // todo
-}
-
-function QuadTree(bounds, level) {
-    this.objects = [];
-    this.nodes = [];
-    this.level = level || 0;
-    this.bounds = bounds;
-}
-
-QuadTree.prototype.MAX_OBJECTS = 10;
-QuadTree.prototype.MAX_LEVELS = 5;
-
-QuadTree.prototype.getIndex = function(rect) {
-    var bounds = this.bounds;
+class QuadTree {
     
-    var onTop = rect.y - rect.halfSize.y >= bounds.y;
-    var onBottom = rect.y + rect.halfSize.y <= bounds.y;
-    var onLeft = rect.x + rect.halfSize.x <= bounds.x;
-    var onRight = rect.x - rect.halfSize.x >= bounds.x;
-    
-    if (onTop && !onLeft && !onRight) return [0, 1];
-    if (onRight && !onTop && !onBottom) return [0, 3];
-    if (onBottom && !onLeft && !onRight) return [2, 3];
-    if (onLeft && !onTop && !onBottom) return [1, 2];
-    
-    if (onTop && onRight) return [0];
-    if (onTop && onLeft) return [1];
-    if (onBottom && onLeft) return [2];
-    if (onBottom && onRight) return [3];
-    
-    return [0, 1, 2, 3];
-    
-    
-};
-
-QuadTree.prototype.split = function() {
-    var level = this.level;
-    var bounds = this.bounds;
-    
-    var cWidth = bounds.width / 2;
-    var cHeight = bounds.height / 2;
-    
-    this.nodes.push(
-        new QuadTree({width: cWidth, height: cHeight, x: cWidth / 2, y: cHeight / 2}, level + 1),
-        new QuadTree({width: cWidth, height: cHeight, x: -cWidth / 2, y: cHeight / 2}, level + 1),
-        new QuadTree({width: cWidth, height: cHeight, x: -cWidth / 2, y: -cHeight / 2}, level + 1),
-        new QuadTree({width: cWidth, height: cHeight, x: cWidth / 2, y: -cHeight / 2}, level + 1)
-    );
-};
-
-QuadTree.prototype.insert = function(rect) {
-    var objs = this.objects;
-    var i, index;
-    
-    if (this.nodes.length) {
-        index = this.getIndex(rect);
-        
-        index.forEach(value => {
-            this.nodes[value].insert(rect);
-        });
-        
-        return;
+    constructor(bounds, level = 0) {
+        this.objs = {};
+        this.nodes = [];
+        this.level = level;
+        this.bounds = bounds;
     }
     
-    objs.push(rect);
+    getIndex(rect) {
+        rect = rect[Object.keys(rect)[0]];
+        var bounds = this.bounds;
+        
+        var onTop = rect.y - rect.halfSize.y >= bounds.cy;
+        var onBottom = rect.y + rect.halfSize.y <= bounds.cy;
+        var onLeft = rect.x + rect.halfSize.x <= bounds.cx;
+        var onRight = rect.x - rect.halfSize.x >= bounds.cx;
+        
+        if (onTop && onRight) return 0;
+        if (onTop && onLeft) return 1;
+        if (onBottom && onLeft) return 2;
+        if (onBottom && onRight) return 3;
+        return -1;
+    }
     
-    if (!this.nodes.length &&
-        this.objects.length > this.MAX_OBJECTS &&
-        this.level < this.MAX_LEVELS) {
+    split() {
+        var level = this.level;
+        var bounds = this.bounds;
+        var cWidth = bounds.width / 2;
+        var cHeight = bounds.height / 2;
         
-        this.split();
+        this.nodes.push(
+            new QuadTree({width: cWidth, height: cHeight, cx: cWidth / 2, cy: cHeight / 2}, level + 1),
+            new QuadTree({width: cWidth, height: cHeight, cx: -cWidth / 2, cy: cHeight / 2}, level + 1),
+            new QuadTree({width: cWidth, height: cHeight, cx: -cWidth / 2, cy: -cHeight / 2}, level + 1),
+            new QuadTree({width: cWidth, height: cHeight, cx: cWidth / 2, cy: -cHeight / 2}, level + 1)
+        );
+    }
+    
+    insert(rect) {
+        var objs = this.objs;
+        var i;
+        var index;
         
-        for (i = objs.length - 1; i >= 0; i--) {
-            index = this.getIndex(objs[i]);
+        if (this.nodes.length) {
+            index = this.getIndex(rect);
+            if (index !== -1) {
+                this.nodes[index].insert(rect);
+                return;
+            }
+        }
+        
+        objs[Object.keys(rect)[0]] = rect[Object.keys(rect)[0]];
+
+        if (!this.nodes.length &&
+            Object.keys(this.objs).length > QuadTree.MAX_OBJECTS) {
             
-            index.forEach(value => {
-                this.nodes[value].insert(objs.splice(i, 1)[0]);
-            });
+            
+            this.split();
+            
+            for (i in objs) {
+                var _rect = {
+                    [i]: objs[i]
+                };
+                index = this.getIndex(_rect);
+                if (index !== -1) {
+                    this.nodes[index].insert(_rect);
+                    delete objs[i];
+                }
+            }
         }
     }
-};
-
-QuadTree.prototype.retrieve = function(rect) {
-    var result = [];
-    var index;
-    var arr;
-    var i;
     
-    if (this.nodes.length) {
-        index = this.getIndex(rect);
+    retrieve(rect) {
+        var result = {};
+        var index;
         
-        result = result.concat(index.map(value => {
-            return this.nodes[value].retrieve(rect)
-        }))
+        if (this.nodes.length) {
+            index = this.getIndex(rect);
+            if (index !== -1) {
+                result = Object.assign(result, this.nodes[index].retrieve(rect));
+            }
+        }
+        
+        result = Object.assign(result, this.objs);
+        
+        return result;
     }
-    
-    result = result.concat(this.objects);
-    
-    return _.flattenDeep(result);
-    
+}
+
+QuadTree.MAX_OBJECTS = 2;
+
+
+var tree = new QuadTree({width: 1680, height: 1200, cx: 0, cy: 0});
+
+
+var a = {
+    a: {x: -50, y: 50, halfSize: {x: 38, y: 38}}
 };
 
-var tree = new QuadTree({width: 1680, height: 1200, x: 0, y: 0});
+var b = {
+    b: {x: 50, y: 50, halfSize: {x: 38, y: 38}}
+};
 
+var c = {
+    c: {x: 50, y: -50, halfSize: {x: 38, y: 38}}
+};
 
-// tree.split();
-// tree.nodes[0].split();
-// tree.nodes[1].split();
-// tree.nodes[2].split();
-// tree.nodes[3].split();
+var d = {
+    d: {x: -50, y: -50, halfSize: {x: 38, y: 38}}
+};
 
-// tree.insert({x: -50, y: 50, halfSize: {x: 38, y: 38}}); // 1
-// tree.insert({x: -100, y: 50, halfSize: {x: 38, y: 38}}); // 2
-// tree.insert({x: 50, y: 50, halfSize: {x: 38, y: 38}}); // 3
-// tree.insert({x: 50, y: -50, halfSize: {x: 38, y: 38}}); // 4
-// tree.insert({x: -50, y: -50, halfSize: {x: 38, y: 38}}); // 5
-// tree.insert({x: -50, y: 0, halfSize: {x: 38, y: 38}}); // 6
+tree.insert(a);
+tree.insert(b);
+tree.insert(c);
+tree.insert(d);
 
+// var r = tree.retrieve({
+//     e: {x: -100, y: -100, halfSize: {x: 38, y: 38}}
+// });
 
-// var r = tree.retrieve({x: 0, y: 0, halfSize: {x: 38, y: 38}});
 // console.log(r);
+
+// console.log(tree);
+
+

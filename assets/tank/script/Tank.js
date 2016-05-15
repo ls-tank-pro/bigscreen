@@ -57,7 +57,7 @@ cc.Class({
     },
     
     onDestroy: function() {
-        this.node.destroy();
+        // this.node.destroy();
     },
     
     init: function(equip) {

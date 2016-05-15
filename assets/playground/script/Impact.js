@@ -1,3 +1,96 @@
+function carve(rect, bounds) {
+    var result = {};
+    var key = Object.keys(rect)[0];
+    rect = rect[key];
+    
+    var carveX = bounds.cx >= rect.x - rect.halfSize.x && bounds.cx <= rect.x + rect.halfSize.x;
+    var carveY = bounds.cy >= rect.y - rect.halfSize.y && bounds.cy <= rect.x + rect.halfSize.y;
+    
+    if (carveX && carveY) {
+        
+        result[key + '0'] = {
+            x: bounds.cx + (rect.x + rect.halfSize.x - bounds.cx) / 2,
+            y: bounds.cy + (rect.y + rect.halfSize.y - bounds.cy) / 2,
+            halfSize: {
+                x: (rect.x + rect.halfSize.x - bounds.cx) / 2,
+                y: (rect.y + rect.halfSize.y - bounds.cy) / 2
+            }
+        };
+        
+        result[key + '1'] = {
+            x: bounds.cx - (rect.halfSize.x - rect.x - bounds.cx) / 2,
+            y: bounds.cy + (rect.y + rect.halfSize.y - bounds.cy) / 2,
+            halfSize: {
+                x: (rect.halfSize.x - rect.x - bounds.cx) / 2,
+                y: (rect.y + rect.halfSize.y - bounds.cy) / 2
+            }
+        };
+        
+        result[key + '2'] = {
+            x: bounds.cx - (rect.halfSize.x - rect.x - bounds.cx) / 2,
+            y: bounds.cy - (rect.halfSize.y - rect.y - bounds.cy) / 2,
+            halfSize: {
+                x: (rect.halfSize.x - rect.x - bounds.cx) / 2,
+                y: (rect.halfSize.y - rect.y - bounds.cy) / 2
+            }
+        };
+        
+        result[key + '3'] = {
+            x: bounds.cx + (rect.x + rect.halfSize.x - bounds.cx) / 2,
+            y: bounds.cy - (rect.halfSize.y - rect.y - bounds.cy) / 2,
+            halfSize: {
+                x: (rect.x + rect.halfSize.x - bounds.cx) / 2,
+                y: (rect.halfSize.y - rect.y - bounds.cy) / 2
+            }
+        };
+        
+    } else if (carveX) {
+        result[key + 'right'] = {
+            x: bounds.cx + (rect.x + rect.halfSize.x - bounds.cx) / 2,
+            y: rect.y,
+            halfSize: {
+                x: (rect.x + rect.halfSize.x - bounds.cx) / 2,
+                y: rect.halfSize.y
+            }
+        };
+        
+        result[key + 'left'] = {
+            x: bounds.cx - (rect.halfSize.x - rect.x - bounds.cx) / 2,
+            y: rect.y,
+            halfSize: {
+                x: (rect.halfSize.x - rect.x - bounds.cx) / 2,
+                y: rect.halfSize.y
+            }
+        };
+    } else if (carveY) {
+        result[key + 'top'] = {
+            x: rect.x,
+            y: bounds.cy + (rect.y + rect.halfSize.y - bounds.cy) / 2,
+            halfSize: {
+                x: rect.halfSize.x,
+                y: (rect.y + rect.halfSize.y - bounds.cy) / 2
+            }
+        };
+        
+        result[key + 'bottom'] = {
+            x: rect.x,
+            y: bounds.cy - (rect.halfSize.y - rect.y - bounds.cy) / 2,
+            halfSize: {
+                x: rect.halfSize.x,
+                y: (rect.halfSize.y - rect.y - bounds.cy) / 2
+            }
+        };
+        
+        
+    }  
+    
+    return result;
+}
+
+function isInner() {
+    
+}
+
 class QuadTree {
     
     constructor(bounds, level = 0) {
@@ -74,11 +167,27 @@ class QuadTree {
     retrieve(rect) {
         var result = {};
         var index;
+        var arr;
+        var i;
         
         if (this.nodes.length) {
             index = this.getIndex(rect);
             if (index !== -1) {
                 result = Object.assign(result, this.nodes[index].retrieve(rect));
+            } else {
+                arr = carve(rect, this.bounds);
+                for (i in arr) {
+                    // console.log(arr[i]);
+                    index = this.getIndex({
+                        [i]: arr[i]
+                    });
+                    // console.log(index)
+                    result = Object.assign(result, this.nodes[index].retrieve({
+                        [i]: arr[i]
+                    }));
+                }
+                
+                
             }
         }
         
@@ -115,11 +224,11 @@ tree.insert(b);
 tree.insert(c);
 tree.insert(d);
 
-// var r = tree.retrieve({
-//     e: {x: -100, y: -100, halfSize: {x: 38, y: 38}}
-// });
+var r = tree.retrieve({
+    e: {x: 50, y: 10, halfSize: {x: 38, y: 38}}
+});
 
-// console.log(r);
+console.log(r);
 
 // console.log(tree);
 

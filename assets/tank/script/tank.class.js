@@ -17,7 +17,7 @@ class Tank {
             wheel: user.wheel
         };
         
-        this.component.init(this.equip);
+        this.component.init(this.equip, this.nickname);
         
         this.appendToPlayground(playground, position);
     }
@@ -32,6 +32,13 @@ class Tank {
     
     get halfSize() {
         return {x: 38, y: 38};
+    }
+    
+    getPosition() {
+        return {
+            x: this.node.x,
+            y: this.node.y
+        };
     }
     
     appendToPlayground(playground, position) {

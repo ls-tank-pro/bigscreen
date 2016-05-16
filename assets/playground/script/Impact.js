@@ -210,16 +210,19 @@ class QuadTree {
             };
             
             index = this.getIndex(rect);
-            
-            if (!isInner(rect, this.bounds)) {
-                if (this !== root) {
-                    root.insert(rect);
+            if (index !== -1) {
+                if (!isInner(rect, this.bounds)) {
+                    if (this !== root) {
+                        console.log('refresh...');
+                        root.insert(rect);
+                        delete objs[i];
+                    }
+                } else if (this.nodes.length) {
+                    this.nodes[index].insert(rect);
                     delete objs[i];
                 }
-            } else if (this.nodes.length) {
-                this.node[index].insert(rect);
-                delete objs[i];
             }
+            
         }
         
         for (j = 0, len = this.nodes.length; j < len; j++) {
@@ -244,10 +247,9 @@ class QuadTree {
     }
 }
 
-QuadTree.MAX_OBJECTS = 10;
+QuadTree.MAX_OBJECTS = 2;
 
 
-var tree = new QuadTree({width: 1680, height: 1200, cx: 0, cy: 0});
-
+module.exports = new QuadTree({width: 1680, height: 1200, cx: 0, cy: 0});
 
 

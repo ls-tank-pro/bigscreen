@@ -26,5 +26,8 @@ cc.Class({
         Socket.on('b-direction', user => {
             this.pool.changeTankMotion(user);
         });
+        Socket.on('b-fire', user => {
+            this.pool.tankFire(user);
+        });
     }
 });

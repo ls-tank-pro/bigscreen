@@ -15,6 +15,42 @@ cc.Class({
         buffContainer: {
             default: null,
             type: cc.Node
+        },
+        nickname: {
+            default: null,
+            type: cc.Label
+        },
+        heads: {
+            default: [],
+            type: cc.SpriteFrame
+        },
+        bodys: {
+            default: [],
+            type: cc.SpriteFrame
+        },
+        wheelsPre: {
+            default: [],
+            type: cc.SpriteFrame
+        },
+        wheelsNext: {
+            default: [],
+            type: cc.SpriteFrame
+        },
+        head: {
+            default: null,
+            type: cc.Sprite
+        },
+        body: {
+            default: null,
+            type: cc.Sprite
+        },
+        wheelPre: {
+            default: null,
+            type: cc.Sprite
+        },
+        wheelNext: {
+            default: null,
+            type: cc.Sprite
         }
     },
 
@@ -57,10 +93,15 @@ cc.Class({
     },
     
     onDestroy: function() {
-        // this.node.destroy();
     },
     
-    init: function(equip) {
+    init: function(equip, nickname) {
+        this.nickname.string = nickname;
         this.speed = level.wheel[equip.wheel];
+        
+        this.head.spriteFrame = this.heads[equip.head];
+        this.body.spriteFrame = this.bodys[equip.body];
+        this.wheelPre.spriteFrame = this.wheelsPre[equip.wheel];
+        this.wheelNext.spriteFrame = this.wheelsNext[equip.wheel];
     }
 });

@@ -10,17 +10,13 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
-        pool: {
-            default: null,
-            type: cc.Component
-        },
         cache: {
             default: {}
         }
     },
     
     create: function(user) {
-        var tank = new Tank(this.prefab, this.pool.playground, this.createPosition(), user);
+        var tank = new Tank(this.prefab, window.Global.pool.playground, this.createPosition(), user);
         this.cache[user.uid] = tank;
         return tank;
     },

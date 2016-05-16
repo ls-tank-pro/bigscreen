@@ -244,50 +244,10 @@ class QuadTree {
     }
 }
 
-QuadTree.MAX_OBJECTS = 2;
+QuadTree.MAX_OBJECTS = 10;
 
 
 var tree = new QuadTree({width: 1680, height: 1200, cx: 0, cy: 0});
 
-
-var a = {
-    a: {x: -50, y: 50, halfSize: {x: 38, y: 38}}
-};
-
-var b = {
-    b: {x: 50, y: 50, halfSize: {x: 38, y: 38}}
-};
-
-var c = {
-    c: {x: 50, y: -50, halfSize: {x: 38, y: 38}}
-};
-
-var d = {
-    d: {x: -50, y: -50, halfSize: {x: 38, y: 38}}
-};
-
-tree.insert(a);
-tree.insert(b);
-tree.insert(c);
-tree.insert(d);
-
-
-var r = tree.retrieve({
-    e: {x: 50, y: 10, halfSize: {x: 38, y: 38}}
-});
-
-// console.log(r);
-
-
-
-tree.remove(a);
-
-console.log(tree);
-
-// tree.nodes[0].objs.b.y = -50;
-
-// tree.refresh();
-
-// console.log(tree);
 
 

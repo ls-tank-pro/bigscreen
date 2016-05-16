@@ -87,8 +87,14 @@ function carve(rect, bounds) {
     return result;
 }
 
-function isInner() {
+function isInner(rect, bounds) {
+    var key = Object.keys(rect)[0];
+    rect = rect[key];
     
+    var isInX = rect.x <= bounds.cx + bounds.width / 2 && rect.x >= bounds.cx - bounds.width / 2;
+    var isInY = rect.y <= bounds.cy + bounds.height / 2 && rect.y >= bounds.cy - bounds.height / 2;
+    
+    return isInX && isInY;
 }
 
 class QuadTree {
@@ -177,17 +183,13 @@ class QuadTree {
             } else {
                 arr = carve(rect, this.bounds);
                 for (i in arr) {
-                    // console.log(arr[i]);
                     index = this.getIndex({
                         [i]: arr[i]
                     });
-                    // console.log(index)
                     result = Object.assign(result, this.nodes[index].retrieve({
                         [i]: arr[i]
                     }));
                 }
-                
-                
             }
         }
         
@@ -195,41 +197,40 @@ class QuadTree {
         
         return result;
     }
+    
+    refresh(root) {
+        var objs = this.objs;
+        var rect, index, i, j, len;
+        
+        root = root || this;
+        
+        for (i in objs) {
+            rect = {
+                [i]: objs[i]
+            };
+            
+            index = this.getIndex(rect);
+            
+            if (!isInner(rect, this.bounds)) {
+                if (this !== root) {
+                    root.insert(rect);
+                    delete objs[i];
+                }
+            } else if (this.nodes.length) {
+                this.node[index].insert(rect);
+                delete objs[i];
+            }
+        }
+        
+        for (j = 0, len = this.nodes.length; j < len; j++) {
+            this.nodes[j].refresh(root);
+        }
+    }
 }
 
-QuadTree.MAX_OBJECTS = 2;
+QuadTree.MAX_OBJECTS = 10;
 
 
-var tree = new QuadTree({width: 1680, height: 1200, cx: 0, cy: 0});
 
-
-var a = {
-    a: {x: -50, y: 50, halfSize: {x: 38, y: 38}}
-};
-
-var b = {
-    b: {x: 50, y: 50, halfSize: {x: 38, y: 38}}
-};
-
-var c = {
-    c: {x: 50, y: -50, halfSize: {x: 38, y: 38}}
-};
-
-var d = {
-    d: {x: -50, y: -50, halfSize: {x: 38, y: 38}}
-};
-
-tree.insert(a);
-tree.insert(b);
-tree.insert(c);
-tree.insert(d);
-
-var r = tree.retrieve({
-    e: {x: 50, y: 10, halfSize: {x: 38, y: 38}}
-});
-
-console.log(r);
-
-// console.log(tree);
 
 

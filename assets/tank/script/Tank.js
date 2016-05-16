@@ -85,7 +85,11 @@ cc.Class({
         }
     },
 
-    update: function(dt) {
+    // update: function(dt) {
+        
+    // },
+    
+    lateUpdate: function(dt) {
         var x = this.velocity.x;
         var y = this.velocity.y;
         this.node.x += x * dt;
@@ -103,5 +107,7 @@ cc.Class({
         this.body.spriteFrame = this.bodys[equip.body];
         this.wheelPre.spriteFrame = this.wheelsPre[equip.wheel];
         this.wheelNext.spriteFrame = this.wheelsNext[equip.wheel];
+        
+        
     }
 });

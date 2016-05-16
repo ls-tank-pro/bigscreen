@@ -4,6 +4,9 @@ class Bullet {
         this.fireLevel = user.data.fire;
         this.type = 'Bullet';
         
+        this.impactFlag = 1;
+        this.impactFlags = 3;
+        
         this.node = cc.instantiate(prefeb);
         this.component = this.node.getComponent('Bullet');
         
@@ -43,12 +46,16 @@ class Bullet {
     
     addListener() {
         this.node.on('outOfPlayground', this.remove, this);
+        this.node.on('impact', this.beImpact, this); // todo
+    }
+    
+    beImpact(event) {
+        // console.log(event);
     }
     
     remove() {
         this.node.off('outOfPlayground', this.remove, this);
         this.component.destroy();
-        // window.Global.pool.removeNode('bullet' + this);
         window.Global.bulletsSet.remove(this.index);
     }
     

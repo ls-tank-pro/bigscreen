@@ -4,6 +4,9 @@ class Tank {
         this.type = 'Tank';
         this.nickname = user.nickname;
         
+        this.impactFlag = 2;
+        this.impactFlags = 6;
+        
         this.node = cc.instantiate(prefab);
         this.component = this.node.getComponent('Tank');
         
@@ -20,6 +23,8 @@ class Tank {
         this.component.init(this.equip, this.nickname);
         
         this.appendToPlayground(playground, position);
+        
+        this.addListener();
     }
     
     get x() {
@@ -39,6 +44,19 @@ class Tank {
             x: this.node.x,
             y: this.node.y
         };
+    }
+    
+    addListener() {
+        this.node.on('impact', this.beImpact, this);
+    }
+    
+    beImpact(event) {
+        if (event.detail.type === 'Bullet') {
+            // todo
+        } else if (event.detail.type === 'Tank') {
+            this.component.velocity = { x: -(this.component.velocity.x / 2), y: -(this.component.velocity.y / 2)};
+        }
+        
     }
     
     appendToPlayground(playground, position) {
@@ -67,6 +85,10 @@ class Tank {
             this.component.direction = direction;
             this.rotate(direction);
         }
+    }
+    
+    remove() {
+        this.node.active = false;
     }
 }
 

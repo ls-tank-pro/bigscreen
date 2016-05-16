@@ -21,7 +21,7 @@ cc.Class({
             this.pool.createTank(user.data);
         });
         Socket.on('b-leave', user => {
-            this.pool.removeTank(user.data);
+            this.pool.tanksSet.remove(user.data);
         });
         Socket.on('b-direction', user => {
             this.pool.changeTankMotion(user);

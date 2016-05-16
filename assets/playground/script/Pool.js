@@ -12,6 +12,10 @@ cc.Class({
             default: null,
             type: cc.Component
         },
+        buffsSet: {
+            default: null,
+            type: cc.Component
+        },
         playground: {
             default: null,
             type: cc.Component
@@ -28,11 +32,6 @@ cc.Class({
         ImpactTree.insert({
             ['tank' + user.uid]: tank
         });
-    },
-    
-    removeTank: function(user, completely) {
-        this.tanksSet.remove(user);
-        delete this.nodePool['tank' + user.uid];
     },
     
     changeTankMotion: function(user) {
@@ -63,6 +62,45 @@ cc.Class({
         delete this.nodePool[key];
     },
     
+    checkImpact: function() {
+        var hasBeenCheckImpact = [];
+        for (var key in this.nodePool) {
+            
+            
+            var result = ImpactTree.retrieve({
+                [key]: this.nodePool[key]
+            });
+            
+            
+            for (var index in result) {
+                if (hasBeenCheckImpact.indexOf(index) !== -1) {
+                    continue;
+                }
+                hasBeenCheckImpact.push(key);
+                var me = result[index];
+                var target = this.nodePool[key];
+                
+                if (me.uid !== target.uid) {
+                    
+                    if (me.impactFlags & target.impactFlag) {
+                        
+                        var maxX = me.halfSize.x + target.halfSize.x;
+                        var maxY = me.halfSize.y + target.halfSize.y;
+                        
+                        var offsetX = Math.abs(me.x - target.x);
+                        var offsetY = Math.abs(me.y - target.y);
+                        
+                        if (offsetX < maxX && offsetY < maxY) {
+                            
+                            me.node.emit('impact', target);
+                            target.node.emit('impact', me);
+                        }
+                    }
+                }
+            }
+        }  
+    },
+    
     onLoad: function() {
         window.Global = {
             tanksSet: this.tanksSet,
@@ -76,5 +114,6 @@ cc.Class({
     
     update: function(dt) {
         ImpactTree.refresh();
+        this.checkImpact();
     }
 });

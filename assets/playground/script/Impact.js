@@ -194,7 +194,6 @@ class QuadTree {
         }
         
         result = Object.assign(result, this.objs);
-        
         return result;
     }
     
@@ -247,7 +246,7 @@ class QuadTree {
     }
 }
 
-QuadTree.MAX_OBJECTS = 2;
+QuadTree.MAX_OBJECTS = 10;
 
 
 module.exports = new QuadTree({width: 1680, height: 1200, cx: 0, cy: 0});

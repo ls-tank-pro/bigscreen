@@ -5,7 +5,7 @@ class Tank {
         this.nickname = user.nickname;
         
         this.impactFlag = 2;
-        this.impactFlags = 6;
+        this.impactFlags = 4;
         
         this.node = cc.instantiate(prefab);
         this.component = this.node.getComponent('Tank');
@@ -53,8 +53,12 @@ class Tank {
     beImpact(event) {
         if (event.detail.type === 'Bullet') {
             // todo
+            console.log(event.detail);
         } else if (event.detail.type === 'Tank') {
             this.component.velocity = { x: -(this.component.velocity.x / 2), y: -(this.component.velocity.y / 2)};
+        } else if (event.detail.type === 'Buff') {
+            this.component.addBuff(event.detail.subType);
+            event.detail.remove();
         }
         
     }

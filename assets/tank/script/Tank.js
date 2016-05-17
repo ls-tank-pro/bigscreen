@@ -78,7 +78,7 @@ cc.Class({
             if (this.buffTimer.filter(item => item === false).length === 3) {
                 this.buffAnim.stop();
             }
-        }, 5 * 1000);
+        }, 10 * 1000);
         
         if (this.buffTimer.filter(item => item !== false).length === 1) {
             this.buffAnim.play();
@@ -101,7 +101,7 @@ cc.Class({
     
     init: function(equip, nickname) {
         this.nickname.string = nickname;
-        this.speed = level.wheel[equip.wheel];
+        this.speed = level.wheel[equip.wheel] * 2;
         
         this.head.spriteFrame = this.heads[equip.head];
         this.body.spriteFrame = this.bodys[equip.body];

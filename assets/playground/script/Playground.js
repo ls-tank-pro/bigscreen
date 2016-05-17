@@ -13,7 +13,7 @@ cc.Class({
     onLoad: function() {
         Socket.connect();
         this.onServer();
-        
+        this.buffTimer();
     },
     
     onServer: function() {
@@ -29,5 +29,16 @@ cc.Class({
         Socket.on('b-fire', user => {
             this.pool.tankFire(user);
         });
+    },
+    
+    buffTimer: function() {
+        var index = 0;
+        this.schedule(function() {
+            this.unscheduleAllCallbacks();
+            window.Global.buffsSet.clear();
+            this.pool.createBuff(index % 4);
+            // this.pool.createBuff((index + 1) % 4);
+            index++;
+        }, 2);
     }
 });

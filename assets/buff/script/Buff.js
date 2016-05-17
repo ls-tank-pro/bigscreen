@@ -11,9 +11,12 @@ cc.Class({
             type: cc.SpriteFrame
         }
     },
-
-    // use this for initialization
+    
+    init: function(subType) {
+        this.buff.spriteFrame = this.buffs[subType];
+    },
+    
     onLoad: function() {
-
+           
     }
 });

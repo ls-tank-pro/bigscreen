@@ -204,6 +204,10 @@ class QuadTree {
         root = root || this;
         
         for (i in objs) {
+            
+            if (objs[i].type === 'Buff') {
+                continue; // because of buff is static.
+            }
             rect = {
                 [i]: objs[i]
             };
@@ -212,7 +216,6 @@ class QuadTree {
             if (index !== -1) {
                 if (!isInner(rect, this.bounds)) {
                     if (this !== root) {
-                        console.log('refresh...');
                         root.insert(rect);
                         delete objs[i];
                     }

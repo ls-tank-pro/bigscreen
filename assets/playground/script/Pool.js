@@ -55,17 +55,30 @@ cc.Class({
         });
     },
     
-    removeNode: function(key) {
-        ImpactTree.remove({
-            [key]: this.nodePool[key]
+    createBuff: function(subType) {
+        var buff = this.buffsSet.create(subType);
+        this.nodePool['buff' + buff.uid] = buff;
+        
+        ImpactTree.insert({
+            ['buff' + buff.uid]: buff
         });
-        delete this.nodePool[key];
+        
+    },
+    
+    removeNode: function(key) {
+        if (this.nodePool[key]) {
+            ImpactTree.remove({
+                [key]: this.nodePool[key]
+            });
+            delete this.nodePool[key];
+        }
     },
     
     checkImpact: function() {
         var hasBeenCheckImpact = [];
         for (var key in this.nodePool) {
             
+            hasBeenCheckImpact.push(key);
             
             var result = ImpactTree.retrieve({
                 [key]: this.nodePool[key]
@@ -76,13 +89,16 @@ cc.Class({
                 if (hasBeenCheckImpact.indexOf(index) !== -1) {
                     continue;
                 }
-                hasBeenCheckImpact.push(key);
+                
                 var me = result[index];
                 var target = this.nodePool[key];
                 
+                if (!target) {
+                    continue;
+                }
+                
                 if (me.uid !== target.uid) {
-                    
-                    if (me.impactFlags & target.impactFlag) {
+                    if (me.impactFlag & target.impactFlags) {
                         
                         var maxX = me.halfSize.x + target.halfSize.x;
                         var maxY = me.halfSize.y + target.halfSize.y;
@@ -91,7 +107,6 @@ cc.Class({
                         var offsetY = Math.abs(me.y - target.y);
                         
                         if (offsetX < maxX && offsetY < maxY) {
-                            
                             me.node.emit('impact', target);
                             target.node.emit('impact', me);
                         }
@@ -105,6 +120,7 @@ cc.Class({
         window.Global = {
             tanksSet: this.tanksSet,
             bulletsSet: this.bulletsSet,
+            buffsSet: this.buffsSet,
             pool: this
         };
         

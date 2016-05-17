@@ -544,7 +544,11 @@
     "node": {
       "__id__": 14
     },
-    "_enabled": true
+    "_enabled": true,
+    "prefab": {
+      "__uuid__": "d1451571-7f28-4d2f-9e74-a3c264d1d1cb"
+    },
+    "cache": {}
   },
   {
     "__type__": "cc.Canvas",

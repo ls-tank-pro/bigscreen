@@ -48,7 +48,9 @@ cc.Class({
         var bullet = this.bulletsSet.create(user, position, direction);
         
         this.nodePool['bullet' + bullet.index] = bullet.bullet;
+        
         bullet.bullet.index = bullet.index;
+        bullet.bullet.strengthen = _tank.component.getBuff()[0] !== false;
         
         ImpactTree.insert({
             ['bullet' + bullet.index]: bullet.bullet

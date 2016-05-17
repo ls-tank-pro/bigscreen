@@ -1,6 +1,6 @@
 var level = {
     head: [1, 2, 3, 4, 5, 6],
-    body: [5, 6, 7, 8, 9, 10],
+    body: [5, 8, 11, 14, 17, 20],
     wheel: [200, 220, 240, 260, 280, 300]
 };
 
@@ -51,6 +51,10 @@ cc.Class({
         wheelNext: {
             default: null,
             type: cc.Sprite
+        },
+        hpLine: {
+            default: null,
+            type: cc.Node
         }
     },
 
@@ -61,7 +65,7 @@ cc.Class({
     },
     
     getBuff: function() {
-        return this.buff;  
+        return this.buffTimer;  
     },
     
     addBuff: function(index) {
@@ -84,10 +88,6 @@ cc.Class({
             this.buffAnim.play();
         }
     },
-
-    // update: function(dt) {
-        
-    // },
     
     lateUpdate: function(dt) {
         var x = this.velocity.x;

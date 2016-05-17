@@ -1,7 +1,7 @@
 class Bullet {
     constructor(prefeb, playground, position, user, direction) {
         this.uid = user.uid;
-        this.fireLevel = user.data.fire;
+        this.fireLevel = user.data.fire ;
         this.type = 'Bullet';
         
         this.impactFlag = 1;
@@ -10,7 +10,7 @@ class Bullet {
         this.node = cc.instantiate(prefeb);
         this.component = this.node.getComponent('Bullet');
         
-        this.component.speed = 100;
+        this.component.speed = 300;
         this.component.velocity = { x: 0, y: 0 };
         
         this.component.init(this.fireLevel);
@@ -42,6 +42,10 @@ class Bullet {
     
     get halfSize() {
         return this.component.halfSize;
+    }
+    
+    get attack() {
+        return (this.fireLevel + 1) * (this.strengthen ? 2 : 1)
     }
     
     addListener() {

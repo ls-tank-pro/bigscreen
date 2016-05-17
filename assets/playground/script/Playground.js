@@ -37,7 +37,7 @@ cc.Class({
             this.unscheduleAllCallbacks();
             window.Global.buffsSet.clear();
             this.pool.createBuff(index % 4);
-            // this.pool.createBuff((index + 1) % 4);
+            this.pool.createBuff((index + 1) % 4);
             index++;
         }, 2);
     }

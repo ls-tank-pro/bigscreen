@@ -24,6 +24,10 @@ cc.Class({
             default: null,
             type: cc.Component
         },
+        score: {
+            default: null,
+            type: cc.Component
+        },
         playground: {
             default: null,
             type: cc.Component
@@ -40,6 +44,8 @@ cc.Class({
         ImpactTree.insert({
             ['tank' + user.uid]: tank
         });
+        
+        this.score.putUser(user);
     },
     
     changeTankMotion: function(user) {
@@ -133,6 +139,7 @@ cc.Class({
             buffsSet: this.buffsSet,
             boomsSet: this.boomsSet,
             deltaHpSet: this.deltaHpSet,
+            score: this.score,
             pool: this
         };
     },

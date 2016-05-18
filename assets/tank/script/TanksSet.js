@@ -25,8 +25,8 @@ cc.Class({
         if (this.cache[user.uid]) {
             this.cache[user.uid].remove();
             window.Global.pool.removeNode('tank' + user.uid);
+            window.Global.score.removeUser(user.uid);
         }
-        
         
         // to fix
         // if (this.cache[user.uid]) {

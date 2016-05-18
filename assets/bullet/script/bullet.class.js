@@ -1,7 +1,7 @@
 class Bullet {
     constructor(prefeb, playground, position, user, direction) {
         this.uid = user.uid;
-        this.fireLevel = user.data.fire ;
+        this.fireLevel = user.data.fire;
         this.type = 'Bullet';
         
         this.impactFlag = 1;

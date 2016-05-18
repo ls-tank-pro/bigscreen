@@ -92,8 +92,12 @@ cc.Class({
     lateUpdate: function(dt) {
         var x = this.velocity.x;
         var y = this.velocity.y;
-        this.node.x += x * dt;
-        this.node.y += y * dt;
+        this.node.x += x * dt * (this.getBuff()[2] !== false ? 2 : 1);
+        this.node.y += y * dt * (this.getBuff()[2] !== false ? 2 : 1);
+    },
+    
+    updateHpLine() {
+        this.hpLine.width = this.hp / this.maxHp * 90;
     },
     
     onDestroy: function() {
@@ -101,7 +105,11 @@ cc.Class({
     
     init: function(equip, nickname) {
         this.nickname.string = nickname;
-        this.speed = level.wheel[equip.wheel] * 2;
+        this.speed = level.wheel[equip.wheel];
+        
+        this.maxHp = level.body[equip.body];
+        this.hp = level.body[equip.body];
+        
         
         this.head.spriteFrame = this.heads[equip.head];
         this.body.spriteFrame = this.bodys[equip.body];

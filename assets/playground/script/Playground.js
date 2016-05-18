@@ -36,8 +36,9 @@ cc.Class({
         this.schedule(function() {
             this.unscheduleAllCallbacks();
             window.Global.buffsSet.clear();
-            this.pool.createBuff(index % 4);
-            this.pool.createBuff((index + 1) % 4);
+            // this.pool.createBuff(index % 4);
+            // this.pool.createBuff((index + 1) % 4);
+            this.pool.createBuff(2);
             index++;
         }, 2);
     }

@@ -52,15 +52,17 @@ class Tank {
     
     beImpact(event) {
         if (event.detail.type === 'Bullet') {
-            // todo
-            var attack = event.detail.attack
+            var attack = event.detail.attack;
             var defense = this.component.getBuff()[1] ? 2 : 1;
             var deltaHp = - (attack / defense);
             
+            event.detail.remove();
             
+            this.updateHp(deltaHp);
+            this.checkIsDead();
             
         } else if (event.detail.type === 'Tank') {
-            this.component.velocity = { x: -(this.component.velocity.x / 2), y: -(this.component.velocity.y / 2)};
+            this.component.velocity = { x: -(this.component.velocity.x), y: -(this.component.velocity.y)};
         } else if (event.detail.type === 'Buff') {
             this.component.addBuff(event.detail.subType);
             event.detail.remove();
@@ -69,8 +71,15 @@ class Tank {
     }
     
     updateHp(deltaHp) {
-        // todo
-        // update this.component.body
+        this.component.hp += deltaHp;
+        this.component.updateHpLine();
+    }
+    
+    checkIsDead() {
+        if (this.component.hp <= 0) {
+            this.remove();
+            window.Global.pool.removeNode('tank' + this.uid);
+        }
     }
     
     appendToPlayground(playground, position) {

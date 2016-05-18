@@ -10,7 +10,7 @@ class Bullet {
         this.node = cc.instantiate(prefeb);
         this.component = this.node.getComponent('Bullet');
         
-        this.component.speed = 300;
+        this.component.speed = 200;
         this.component.velocity = { x: 0, y: 0 };
         
         this.component.init(this.fireLevel);
@@ -50,11 +50,11 @@ class Bullet {
     
     addListener() {
         this.node.on('outOfPlayground', this.remove, this);
-        this.node.on('impact', this.beImpact, this); // todo
+        this.node.on('impact', this.beImpact, this);
     }
     
     beImpact(event) {
-        // console.log(event);
+        this.remove();
     }
     
     remove() {

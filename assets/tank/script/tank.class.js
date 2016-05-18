@@ -59,7 +59,7 @@ class Tank {
             event.detail.remove();
             
             this.updateHp(deltaHp);
-            this.checkIsDead();
+            this.checkIsDead(deltaHp);
             
         } else if (event.detail.type === 'Tank') {
             this.component.velocity = { x: -(this.component.velocity.x), y: -(this.component.velocity.y)};
@@ -75,17 +75,18 @@ class Tank {
         this.component.updateHpLine();
     }
     
-    checkIsDead() {
+    checkIsDead(deltaHp) {
+        var position = this.getPosition();
         if (this.component.hp <= 0) {
-            var position = this.getPosition();
+            
             
             this.remove();
             window.Global.pool.removeNode('tank' + this.uid);
             
             window.Global.boomsSet.getItem(position);
-        } else {
-            this.component.explosion();
         }
+        this.component.explosion();
+        window.Global.deltaHpSet.getItem(position, deltaHp);
     }
     
     appendToPlayground(playground, position) {

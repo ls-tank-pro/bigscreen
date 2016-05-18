@@ -7,7 +7,7 @@
     "height": 256
   },
   "type": "Texture Packer",
-  "rawTextureUrl": "db://assets/tank/atlas/boom.png",
+  "rawTextureUrl": "db://assets/boom/atlas/boom.png",
   "subMetas": {
     "1.png": {
       "ver": "1.0.2",

@@ -20,6 +20,10 @@ cc.Class({
             default: null,
             type: cc.Component
         },
+        deltaHpSet: {
+            default: null,
+            type: cc.Component
+        },
         playground: {
             default: null,
             type: cc.Component
@@ -128,6 +132,7 @@ cc.Class({
             bulletsSet: this.bulletsSet,
             buffsSet: this.buffsSet,
             boomsSet: this.boomsSet,
+            deltaHpSet: this.deltaHpSet,
             pool: this
         };
     },

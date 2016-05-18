@@ -10,7 +10,7 @@ class Bullet {
         this.node = cc.instantiate(prefeb);
         this.component = this.node.getComponent('Bullet');
         
-        this.component.speed = 200;
+        this.component.speed = 800;
         this.component.velocity = { x: 0, y: 0 };
         
         this.component.init(this.fireLevel);
@@ -45,7 +45,7 @@ class Bullet {
     }
     
     get attack() {
-        return (this.fireLevel + 1) * (this.strengthen ? 2 : 1)
+        return (this.fireLevel + 1) * (this.strengthen ? 2 : 1);
     }
     
     addListener() {

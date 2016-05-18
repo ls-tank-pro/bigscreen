@@ -100,7 +100,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 16
+        "__id__": 18
       }
     ],
     "_prefab": null
@@ -166,7 +166,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "3a8cf0f6-40b3-4a09-a614-faff7ff2e1e3"
+      "__uuid__": "d8466150-b988-4c35-ab9b-36d47e7cac22"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -288,6 +288,9 @@
     "buffsSet": {
       "__id__": 15
     },
+    "boomsSet": {
+      "__id__": 17
+    },
     "playground": {
       "__id__": 6
     },
@@ -328,6 +331,9 @@
       },
       {
         "__id__": 14
+      },
+      {
+        "__id__": 16
       }
     ],
     "_rotationX": 0,
@@ -549,6 +555,71 @@
       "__uuid__": "d1451571-7f28-4d2f-9e74-a3c264d1d1cb"
     },
     "cache": {}
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "BoomsSet",
+    "_objFlags": 0,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_parent": {
+      "__id__": 9
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_children": [],
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_tag": -1,
+    "_opacityModifyRGB": false,
+    "_reorderChildDirty": false,
+    "_id": "133daLxP1RKnrHdY1GMkoYB",
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 17
+      }
+    ],
+    "_prefab": null
+  },
+  {
+    "__type__": "2aa3fXzXbJA2bGv2YHWCzCd",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 16
+    },
+    "_enabled": true,
+    "prefab": {
+      "__uuid__": "a4835275-9474-4206-9a31-c49118d973c5"
+    },
+    "cache": []
   },
   {
     "__type__": "cc.Canvas",

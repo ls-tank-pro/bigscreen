@@ -77,8 +77,14 @@ class Tank {
     
     checkIsDead() {
         if (this.component.hp <= 0) {
+            var position = this.getPosition();
+            
             this.remove();
             window.Global.pool.removeNode('tank' + this.uid);
+            
+            window.Global.boomsSet.getItem(position);
+        } else {
+            this.component.explosion();
         }
     }
     

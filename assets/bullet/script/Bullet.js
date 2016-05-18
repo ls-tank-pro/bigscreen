@@ -9,7 +9,11 @@ cc.Class({
         bullets: {
             default: [],
             type: cc.SpriteFrame
-        }
+        },
+        fireAudio: {
+            default: null,
+            url: cc.AudioClip
+        },
     },
 
     init: function(fireLevel) {
@@ -17,7 +21,7 @@ cc.Class({
     },
     
     onLoad: function() {
-        
+        cc.audioEngine.playEffect(this.fireAudio, false);
     },
     
     onDestroy: function() {

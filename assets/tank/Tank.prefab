@@ -66,10 +66,13 @@
     "_components": [
       {
         "__id__": 37
+      },
+      {
+        "__id__": 38
       }
     ],
     "_prefab": {
-      "__id__": 38
+      "__id__": 39
     }
   },
   {
@@ -1126,6 +1129,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "explosionAudio": {
+      "__uuid__": "d90387ca-f9b2-4689-8e7d-6409e99d421c"
+    },
     "buffs": [
       {
         "__id__": 3
@@ -1238,6 +1244,23 @@
     "hpLine": {
       "__id__": 17
     }
+  },
+  {
+    "__type__": "cc.MotionStreak",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_fadeTime": 1,
+    "_minSeg": 1,
+    "_stroke": 80,
+    "_texture": {
+      "__uuid__": "cccf6f0b-7f0d-4a59-8074-e6f9d4c8b363"
+    },
+    "_fastMode": true,
+    "_N$preview": false
   },
   {
     "__type__": "cc.PrefabInfo",

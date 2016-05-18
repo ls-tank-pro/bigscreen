@@ -182,7 +182,9 @@
         "__uuid__": "f1042e5b-93af-42f1-88ec-d735ab317e29"
       }
     ],
-    "bulletsSet": null
+    "fireAudio": {
+      "__uuid__": "556ae1aa-a73c-4089-a619-10347e81f4ad"
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

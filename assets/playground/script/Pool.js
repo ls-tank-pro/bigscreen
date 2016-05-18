@@ -16,6 +16,10 @@ cc.Class({
             default: null,
             type: cc.Component
         },
+        boomsSet: {
+            default: null,
+            type: cc.Component
+        },
         playground: {
             default: null,
             type: cc.Component
@@ -123,11 +127,9 @@ cc.Class({
             tanksSet: this.tanksSet,
             bulletsSet: this.bulletsSet,
             buffsSet: this.buffsSet,
+            boomsSet: this.boomsSet,
             pool: this
         };
-        
-        // to test
-        window.tree = ImpactTree;
     },
     
     update: function(dt) {

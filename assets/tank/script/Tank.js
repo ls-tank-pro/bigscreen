@@ -8,6 +8,10 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        explosionAudio: {
+            default: null,
+            url: cc.AudioClip
+        },
         buffs: {
             default: [],
             type: cc.Node
@@ -96,8 +100,12 @@ cc.Class({
         this.node.y += y * dt * (this.getBuff()[2] !== false ? 2 : 1);
     },
     
-    updateHpLine() {
+    updateHpLine: function() {
         this.hpLine.width = this.hp / this.maxHp * 90;
+    },
+    
+    explosion: function() {
+        cc.audioEngine.playEffect(this.explosionAudio, false);
     },
     
     onDestroy: function() {

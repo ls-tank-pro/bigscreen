@@ -1,3 +1,5 @@
+var Socket = require('socket');
+
 function killstreaks(winner) {
     var nickname = winner.nickname;
     var kill = winner.kill > 5 ? 5 : winner.kill;
@@ -16,7 +18,7 @@ function kill(winner, loser) {
     var loserNickName = loser.nickname;
     var capacity = loser.capacity;
     
-    return `${winnerNickName}击毁了${loserNickName}，获得了${capacity * 50}钻石`;
+    return `${winnerNickName}击毁了${loserNickName}，获得了${capacity}钻石`;
 }
 
 
@@ -53,7 +55,7 @@ cc.Class({
         this.data[user.uid] = {
             nickname: user.nickname,
             kill: 0,
-            capacity: user.head + user.body + user.wheel + 3
+            capacity: (user.head + user.body + user.wheel + 3) * 50
         };
     },
     
@@ -65,6 +67,20 @@ cc.Class({
     createData: function(winnerUid, loserUid) {
         var winner = this.data[winnerUid];
         var loser = this.data[loserUid];
+        
+        Socket.emit('b-score', {
+            winner: {
+                uid: winnerUid,
+                nickname: winner.nickname,
+                diamond: loser.capacity
+            }
+        });
+        
+        Socket.emit('b-boom', {
+            loser: {
+                uid: loserUid
+            }
+        });
         
         winner.kill++;
         
